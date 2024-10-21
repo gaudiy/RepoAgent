@@ -23,6 +23,7 @@ dependencies = [
     "tomli-w>=1.0.0",
     "colorama>=0.4.6",
     "llama-index-llms-openai>=0.2.12",
+    "langsmith>=0.1.136",
 ]
 name = "repoagent"
 version = "0.1.4"

@@ -6,6 +6,7 @@ from dataclasses import dataclass
 
 import tiktoken
 from openai import APIConnectionError, OpenAI
+from langsmith.wrappers import wrap_openai
 
 from repo_agent.doc_meta_info import DocItem
 from repo_agent.log import logger
@@ -69,11 +70,11 @@ class ChatEngine:
         return sys_prompt
 
     def generate_response(self, model, sys_prompt, usr_prompt, max_tokens):
-        client = OpenAI(
+        client = wrap_openai(OpenAI(
             api_key=setting.chat_completion.openai_api_key.get_secret_value(),
             base_url=str(setting.chat_completion.base_url),
             timeout=setting.chat_completion.request_timeout,
-        )
+        ))
 
         messages = [
             {"role": "system", "content": sys_prompt},

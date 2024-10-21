@@ -1,5 +1,6 @@
 import json
 
+from langsmith.wrappers import wrap_openai
 from llama_index.core import PromptTemplate
 from llama_index.llms.openai import OpenAI
 from openai import OpenAI as AI
@@ -17,7 +18,7 @@ class RepoAssistant:
         self.api_base = api_base
         self.db_path = db_path
         self.md_contents = []
-        self.llm = OpenAI(api_key=api_key, api_base=api_base,model="gpt-3.5-turbo-1106")
+        self.llm = wrap_openai(OpenAI(api_key=api_key, api_base=api_base,model="gpt-4o-mini"))
         self.client = OpenAI(api_key=api_key, api_base=api_base,model="gpt-4-1106-preview")
         self.lm = AI(api_key = api_key, base_url = api_base)
         self.textanslys = TextAnalysisTool(self.llm,db_path)
